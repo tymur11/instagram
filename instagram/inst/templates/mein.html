@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    {% for p in post %}
+        <div class="row mt-3" style="justify-content: center; border-bottom: 2px solid #606060;">
+            <div class="">
+                <p><a href="/userpage/{{p.user.id}}/" class="name"><img src="{{p.user.avatar.url}}" class="avatar"> {{p.user.username}}</a></p>
+                <img src="{{p.imege.url}}" class="imgpost">
+                <p class="my-3"><img src="/static/icons/like.png" class="likepost"><img src="/static/icons/comment.png" class="likepost mx-3"> </p>
+                <p class="text-white"><a href="/userpage/{{p.user.id}}/" class="name">{{p.user.username}}</a> {{p.text}}</p>
+            </div>  
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

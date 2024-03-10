@@ -1,0 +1,61 @@
+body{
+    background-color: black;
+
+}
+.navigation{
+    position: fixed;
+    height: 100vh;
+    border-right: 2px solid #606060;
+}
+.logo{
+    width: 70%;
+
+}
+
+.qw{
+     height: 25px;
+
+}
+.avatar{
+    height: 30px;
+    border-radius: 50%;
+}
+.textlinks{
+    font-size: 20px;
+    padding: 10px ;
+    text-align: left;
+    border-radius: 10px;
+    width: 90%;
+
+
+}
+.textlinks:hover{
+    background-color: #101010;
+}
+
+.right{
+    position: fixed;
+    height: 100vh;
+    right: 0px;
+    border-left: 2px solid #606060;
+    
+}
+
+.name{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+
+}
+.name:hover{
+    color: gray;
+    text-decoration: none;
+}
+.imgpost{
+    max-height: 60vh;
+    max-width: 90%;
+}
+
+.likepost{
+    height: 5vh;
+}

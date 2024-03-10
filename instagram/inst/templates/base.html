@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {% block import %}{% endblock %}
+    <script src="/static/js/post.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/base.css">
+    
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3 navigation " >
+                <div ><a href="/" ><img src="/static/icons/logo.png" class="logo my-3 mx-3"></a></div>
+                <div class="textlinks"><a href="/"  style="text-decoration: none; font-weight: bold;" class="text-white" ><img src="/static/icons/Home.png" class="qw"> Home</a><br></div>
+                <div class="textlinks"><a href="/chats/"  style="text-decoration: none; font-weight: bold;" class="text-white"> <img src="/static/icons/message.png" class="qw"> Chats</a><br></div>
+                <div class="textlinks"><a href="/search/"  style="text-decoration: none; font-weight: bold;" class="text-white"><img src="/static/icons/Search.png" class="qw"> Search</a><br></div>
+                <div class="textlinks"><a href="/logout/" style="text-decoration: none; font-weight: bold;" class="text-white" ><img src="/static/icons/Logout.png" class="qw"> Logout</a><br></div>
+                <div class="textlinks"><a href="#" style="text-decoration: none; font-weight: bold;" class="text-white"><img src="/static/icons/Notifications.png" class="qw"> Notifications</a><br></div>
+                <div  class="textlinks"><a href="/profilPage"style="text-decoration: none; font-weight: bold;"  class="text-white" ><img src="{{user.avatar.url}}" class="avatar"> {{user.username}}</a></div>
+                <div class="textlinks"><a id="btn" style="text-decoration: none; font-weight: bold;" class="text-white" href="#" ><img src="/static/icons/add.png" class="qw"> Add</a></div>
+            </div>
+            <div class="col-6" style="padding: 0px;">
+                {% csrf_token %}
+                
+                {% block content %}{% endblock %}
+
+            </div>
+            <div class="col-3" class="right">
+
+            </div>
+        </div>
+    </div>
+    
+    <dialog id="img">
+        <input type="file" id="file">
+    </dialog>
+    <dialog id="text">
+        <img src="" id="showimg">
+        <input type="text" id="text1">
+        <button id="btnpost">post</button>
+    </dialog>
+
+
+    
+</body>
+</html>

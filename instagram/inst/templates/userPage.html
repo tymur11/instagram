@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block import %}
+<script src="/static/js/makeChat.js"></script>
+<script src="/static/js/Subscribe.js"></script>
+{% endblock %}
+{% block content %}
+
+
+{% if subscribe %}
+<button id="button" data-url="/userpage/{{user.id}}/">UnFollow</button>
+
+{% else %}
+
+<button id="button" data-url="/userpage/{{user.id}}/">Follow</button>       
+{% endif %}
+<h1 id="NFolowers">{{NFolowers}}</h1>
+<h1 id="NFollow">{{NFollow}}</h1>
+
+
+{% csrf_token %}
+<a href="/makechat/{{user.id}}">Make Chat</a>
+
+{% for p in post %}
+<img src="{{p.imege.url}}">
+<h1>{{p.text}}</h1>
+{% endfor %}
+
+
+
+
+
+{% endblock %}

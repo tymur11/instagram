@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block import %}
+<script src="/static/js/like.js"></script>
+<script src="/static/js/coment.js"></script>
+{% endblock %}
+{% block content %}
+
+<h1>{{post.user.username}}</h1>
+<img src="{{post.imege.url}}">
+<h1>{{post.text}}</h1>
+
+{% if Liked == 1 %}
+<button id="Like">Dislike</button>
+{% else %}
+<button id="Like">Like</button>
+{% endif %}
+<h1 id="Nlike">{{NLike}}</h1>
+
+
+<h1>coment</h1>
+<br>
+<div id="div">
+{% for q in coment %}
+    <h1>{{q.0.user.username}}</h1>
+    <h1>{{q.0.text}}</h1>  
+    {% if q.1 == 0 %}
+    <button id="{{q.0.id}}" class="LikeCom">Like</button>
+    {% else %}
+    <button id="{{q.0.id}}" class="LikeCom">Dislike</button>
+    {% endif %}
+    <p id="likes{{q.0.id}}">{{q.2}}</p>
+    
+    {% endfor %}
+
+
+</div>
+<input id="text">
+<button data-url="/post/{{post.id}}/" id="Button">Submit</button>
+
+{% endblock %}
+
+

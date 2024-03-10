@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block import %}
+<script src="/static/js/ChatPage.js"></script>
+
+{% endblock %}
+{% block content %}
+
+<div id="div">
+    {% for a in mesege %}
+    <h1>{{a.text}}</h1>
+    {% endfor %}
+
+</div>
+<input id="text">
+<button id="Button" type="submit" data-url="/chat/{{chat.id}}/">Submit</button>
+
+{% endblock %}

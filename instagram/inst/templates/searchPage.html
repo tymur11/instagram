@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block import %}
+<script src="/static/js/search.js/"></script>
+{% endblock %}
+{% block content %}
+
+<input id="input">
+{% csrf_token %}
+<div id="div"></div>
+{% endblock %}
