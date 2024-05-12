@@ -4,26 +4,40 @@
 <script src="/static/js/Subscribe.js"></script>
 {% endblock %}
 {% block content %}
+<div class="container">
+    <div class="row my-4" >
+        <div class="col-6 justify-content-center d-flex">
+            <img src="{{user.avatar.url}}" class="avatar1">
+            
 
-
-{% if subscribe %}
-<button id="button" data-url="/userpage/{{user.id}}/">UnFollow</button>
-
-{% else %}
-
-<button id="button" data-url="/userpage/{{user.id}}/">Follow</button>       
-{% endif %}
-<h1 id="NFolowers">{{NFolowers}}</h1>
-<h1 id="NFollow">{{NFollow}}</h1>
+        </div>
+        <div class="col-6">
+            <h3 class="text-white">{{user.username}} {% if subscribe %}
+                <button class="mx-3 btn btn-secondary"  id="button" data-url="/userpage/{{user.id}}/">UnFollow</button>
+                {% else %}
+                
+                <button class="mx-3 btn btn-primary" id="button" data-url="/userpage/{{user.id}}/">Follow</button>       
+                {% endif %} <a href="/makechat/{{user.id}}" class="btn btn-secondary">Make Chat</a></h3>
+                <p class=" text-white"><b>{{Post}}</b>posts <text class="mx-3"><b id="NFolowers">{{NFolowers}}</b> followers</text><b id="NFollow">{{NFollow}}</b> follow</p>
+                <p class="text-white"><b>{{user.first_name}} {{user.last_name}}</b> <br>{%if user.status%}{{user.status}} {% endif%}</p>
+                
+        </div>
+    </div>
+    <div class="row">
+        
+        {% for p in post %}
+        <div class="col-4" style="aspect-ratio: 0.5;">
+        <img src="{{p.imege.url}}">
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
 {% csrf_token %}
-<a href="/makechat/{{user.id}}">Make Chat</a>
 
-{% for p in post %}
-<img src="{{p.imege.url}}">
-<h1>{{p.text}}</h1>
-{% endfor %}
+
+
 
 
 

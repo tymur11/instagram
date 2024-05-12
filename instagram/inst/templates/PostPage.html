@@ -4,29 +4,45 @@
 <script src="/static/js/coment.js"></script>
 {% endblock %}
 {% block content %}
+<div class="container">
+    <div class="row">
+        <p class="text-white"><a href="/userpage/{{p.0.user.id}}/" class="name"><img src="{{p.0.user.avatar.url}}" class="avatar"> {{p.0.user.username}}</a></p>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center" >
+            <img src="{{post.imege.url}}">
+        </div>
+    </div>
+    <div class="row" >
+       <p> {% if Liked == 1 %}
+        <img id="Like" class="likepost" src="/static/icons/a_like.png">
+        {% else %}
+        <img id="Like" class="likepost" src="/static/icons/like.png">
+        {% endif %}
+        <img src="/static/icons/comment.png" class="likepost mx-3"><img src="/static/icons/save.png" class="likepost mx-3"> </p>
+    </div>
+    <div class="row">
+        <p class="text-white"><b id="Nlike">{{NLike}}</b> likes</p>
+    </div>
+    <div class="row">
+        <p class="text-white"><a href="/userpage/{{post.user.id}}/" class="name">{{post.user.username}}</a> {{post.text}}</p> 
 
-<h1>{{post.user.username}}</h1>
-<img src="{{post.imege.url}}">
-<h1>{{post.text}}</h1>
+    </div>
+</div>
 
-{% if Liked == 1 %}
-<button id="Like">Dislike</button>
-{% else %}
-<button id="Like">Like</button>
-{% endif %}
-<h1 id="Nlike">{{NLike}}</h1>
-
-
-<h1>coment</h1>
-<br>
-<div id="div">
+<div class="container">
+    <div class="row mx-3">
+    <input id="text" placeholder="Add coment" class="coment">
+    <button data-url="/post/{{post.id}}/" id="Button" class="button ">Submit</button>
+    </div>
+<div id="div" class="my-3">
 {% for q in coment %}
-    <h1>{{q.0.user.username}}</h1>
-    <h1>{{q.0.text}}</h1>  
+    <p class="text-white"><img src="{{q.0.user.avatar.url}}" class="avatar">  <a href="/userpage/{{q.0.user.id}}/" class="name">{{q.0.user.username}}</a></p>
+    <p class="text-white">{{q.0.text}}</p>
     {% if q.1 == 0 %}
-    <button id="{{q.0.id}}" class="LikeCom">Like</button>
+    <img id="{{q.0.id}}" data-like="dislike" class="LikeCom likecoment" src="/static/icons/like.png/">
     {% else %}
-    <button id="{{q.0.id}}" class="LikeCom">Dislike</button>
+    <img id="{{q.0.id}}" data-like="liked" class="LikeCom likecoment" src="/static/icons/a_like.png">
     {% endif %}
     <p id="likes{{q.0.id}}">{{q.2}}</p>
     
@@ -34,8 +50,7 @@
 
 
 </div>
-<input id="text">
-<button data-url="/post/{{post.id}}/" id="Button">Submit</button>
+</div>
 
 {% endblock %}
 

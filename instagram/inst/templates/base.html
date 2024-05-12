@@ -13,17 +13,17 @@
 
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="base">
         <div class="row">
             <div class="col-3"></div>
             <div class="col-3 navigation " >
-                <div ><a href="/" ><img src="/static/icons/logo.png" class="logo my-3 mx-3"></a></div>
+                <div ><a href="/" ><img src="/static/icons/logo-Instagram-1.png" class="logo my-3 mx-3"></a></div>
                 <div class="textlinks"><a href="/"  style="text-decoration: none; font-weight: bold;" class="text-white" ><img src="/static/icons/Home.png" class="qw"> Home</a><br></div>
                 <div class="textlinks"><a href="/chats/"  style="text-decoration: none; font-weight: bold;" class="text-white"> <img src="/static/icons/message.png" class="qw"> Chats</a><br></div>
                 <div class="textlinks"><a href="/search/"  style="text-decoration: none; font-weight: bold;" class="text-white"><img src="/static/icons/Search.png" class="qw"> Search</a><br></div>
                 <div class="textlinks"><a href="/logout/" style="text-decoration: none; font-weight: bold;" class="text-white" ><img src="/static/icons/Logout.png" class="qw"> Logout</a><br></div>
                 <div class="textlinks"><a href="#" style="text-decoration: none; font-weight: bold;" class="text-white"><img src="/static/icons/Notifications.png" class="qw"> Notifications</a><br></div>
-                <div  class="textlinks"><a href="/profilPage"style="text-decoration: none; font-weight: bold;"  class="text-white" ><img src="{{user.avatar.url}}" class="avatar"> {{user.username}}</a></div>
+                <div  class="textlinks"><a href="/profilPage"style="text-decoration: none; font-weight: bold;"  class="text-white" ><img src="{{currentuser.avatar.url}}" class="avatar"> {{currentuser.username}}</a></div>
                 <div class="textlinks"><a id="btn" style="text-decoration: none; font-weight: bold;" class="text-white" href="#" ><img src="/static/icons/add.png" class="qw"> Add</a></div>
             </div>
             <div class="col-6" style="padding: 0px;">
@@ -37,14 +37,26 @@
             </div>
         </div>
     </div>
-    
-    <dialog id="img">
-        <input type="file" id="file">
+    <a id="quit" class="hide"><img src="/static/icons/quit.png" class="quit "></a>
+    <dialog id="img" class="add text-center">
+        
+        <h4 class="qqq my-2"><b>Create Post</b></h4>
+        <img src="/static/icons/add_post.png" class="img" ><br>
+        <input type="file" id="file" style="display: none;">
+        <button id="btnfile" class="btn btn-primary choseFile my-3">Chose file</button>
     </dialog>
-    <dialog id="text">
-        <img src="" id="showimg">
-        <input type="text" id="text1">
-        <button id="btnpost">post</button>
+    <dialog id="text" class="add container">
+        <h4 class="qqq my-2 text-center"><b>Create Post</b></h4>
+        <div class="row" style="height: 90%;">
+            <div class="col-6 " style="align-items: center; display: flex; justify-content: center;"> 
+                <img src="" id="showimg" class="imgpost ">
+            </div>
+            <div class="col-6">
+                <a style="text-decoration: none; font-weight: bold;"  class="text-white my-2" ><img src="{{currentuser.avatar.url}}" class="avatar"> {{currentuser.username}}</a>
+                <textarea type="text" id="text1" class="textpost my-4"></textarea>
+                <button id="btnpost" class="btn btn-primary ">post</button>
+            </div>
+        </div>
     </dialog>
 
 

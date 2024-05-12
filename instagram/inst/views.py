@@ -23,6 +23,7 @@ class Main(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
         posts = Post.objects.all()
         result = []
         for a in posts:
@@ -35,7 +36,23 @@ class Main(TemplateView):
                 result.append([a,0, len(like)])
         context['post'] = result
         return context 
+    def post(self,request):
+        post = request.POST
+        q = Post.objects.get(id= post['id'])
+        like = Like.objects.filter(post=q)
+        for a in like:
+            if a.user == self.request.user:
+                a.delete()
+                return JsonResponse({"like": 1,'likes': len(like)-1 })
+        else:
+            w = Like(post=q, user=self.request.user)
+            w.save()
+            return JsonResponse({'like': 0, 'likes': len(like)+1})
     
+            
+            
+        
+
     
 
 class RegisterPage(CreateView):
@@ -65,10 +82,10 @@ class MakePost(TemplateView):
     def post(self, request):
         data = request.POST
         if len(data.keys()) == 1:
-            with open('media/media/postimage/file.png', 'wb') as openfile:
+            with open('media/media/postimagefile.png', 'wb') as openfile:
                 openfile.write(request.FILES['img'].read())
         else:
-            path = Path('media/media/postimage/file.png')
+            path = Path('media/media/postimagefile.png')
             with path.open(mode='rb') as openpath:
                 file = File(openpath, name=openpath.name)
                 p = Post(text=data['text'], imege=file, user=self.request.user)
@@ -83,10 +100,12 @@ class UserPage(TemplateView):
     
      def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
         user = User.objects.get(id=self.kwargs['id'])
         subscribe = Subscribe.objects.get(user=user)
         context['NFolowers'] = len(subscribe.subscribers.all())
         context['NFollow'] = len(subscribe.subscribe.all())
+        context['Post'] = len(Post.objects.filter(user=user))
         if self.request.user in subscribe.subscribers.all():
             context['subscribe'] = True
         else:
@@ -118,6 +137,7 @@ class PostPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
         post = Post.objects.get(id=self.kwargs['id'])
         context['post'] = post 
         like = Like.objects.filter(post=post)
@@ -162,22 +182,22 @@ class PostPage(TemplateView):
             for l in like:
                 if l.user == self.request.user:
                     l.delete()
-                    return JsonResponse({1:len(like)-1})
+                    return JsonResponse({1:len(like)-1, 'like': 1})
             else:
                 context = Like(post=post,user=user)
                 context.save()
-                return JsonResponse({1:len(like)+1})
+                return JsonResponse({1:len(like)+1, 'like': 0})
         elif 'id' in q.keys():
             com = Coment.objects.get(id=int(q['id']))
             likeCom = Like.objects.filter(coment=com)
             for q in likeCom:
                 if q.user == self.request.user:
                     q.delete()
-                    return JsonResponse({1:len(likeCom)-1})
+                    return JsonResponse({1:len(likeCom)-1, 'like':1})
             else:
                 context = Like(coment=com, user=user)
                 context.save()
-                return JsonResponse({1:len(likeCom)+1})
+                return JsonResponse({1:len(likeCom)+1, 'like':0})
                 
     
             
@@ -186,13 +206,22 @@ class ProfilPage(TemplateView):
     template_name = 'profilPage.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
         context['User'] = self.request.user
+        context['Subscribe'] = len(Subscribe.objects.get(user=self.request.user).subscribe.all())
+        context['Subscribers'] = len(Subscribe.objects.get(user=self.request.user).subscribers.all())
+        context['post'] = len(Post.objects.filter(user=self.request.user))
+        context['Post'] = Post.objects.filter(user=self.request.user)
         return context
 
 
 
 class SearchPage(TemplateView):
     template_name = 'searchPage.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
+        return context
     def post(self, request):
         a = request.POST
         if a['asd']:
@@ -208,6 +237,7 @@ class ChatPage(TemplateView):
     template_name = 'ChatPage.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['currentuser'] = self.request.user
         chat = Chat.objects.get(id=self.kwargs['id'])
         context['chat'] = chat 
         mesege = Mesege.objects.filter(chat=chat)

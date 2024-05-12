@@ -1,4 +1,4 @@
 {% for a in users %}
-<a href='/userpage/{{a.id}}/'>{{a.username}}</a>
+<p class="mx-2 my-2"><a href='/userpage/{{a.id}}/' class="name"><img src="{{a.avatar.url}}" class="avatar"> {{a.username}}</a></p>
 
 {% endfor %}

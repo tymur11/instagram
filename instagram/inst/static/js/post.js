@@ -1,8 +1,25 @@
 function open(){
     $('#btn').click(function(){
         document.getElementById('img').show()
+        document.getElementById('base').inert = true
+        document.getElementById('quit').classList.remove('hide')
 
     })
+
+
+}
+function close(){
+    $('#quit').click(function(){
+        document.getElementById('img').close()
+        document.getElementById('base').inert =  false
+        document.getElementById('quit').classList.add('hide')
+        document.getElementById('text').close()
+        document.getElementById('file').value = ''
+
+    })
+
+
+
 
 
 }
@@ -45,6 +62,8 @@ function  text(){
             },
             'success': function(button){
                 document.getElementById('text').close()
+                document.getElementById('quit').classList.add('hide')
+                document.getElementById('base').inert = false
                 
 
             }
@@ -62,5 +81,9 @@ function  text(){
 $(document).ready(function(){
     open()
     sendImage()
+    $('#btnfile').click(function(){
+        $('#file').trigger('click')
+    })
     text()
+    close()
 })
